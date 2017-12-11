@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">android-kotlin</string>
+    <string name="dog_breeds">Dog Breeds</string>
+</resources>
