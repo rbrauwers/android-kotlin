@@ -111,14 +111,15 @@ class BreedsActivity : AppCompatActivity(), BreedsContract.View {
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BreedViewHolder {
             val view = LayoutInflater.from(parent?.context).inflate(R.layout.cell_breed, parent, false)
-            return BreedViewHolder(view)
+            val vh = BreedViewHolder(view)
+            vh.itemView?.setOnClickListener {
+                breedClickListener.onBreedClick(breeds!![vh.adapterPosition])
+            }
+            return vh
         }
 
         override fun onBindViewHolder(holder: BreedViewHolder?, position: Int) {
             holder?.itemView?.breedTextView?.text = breeds!![position]
-            holder?.itemView?.setOnClickListener {
-                breedClickListener.onBreedClick(breeds!![position])
-            }
         }
 
         override fun getItemCount(): Int {
