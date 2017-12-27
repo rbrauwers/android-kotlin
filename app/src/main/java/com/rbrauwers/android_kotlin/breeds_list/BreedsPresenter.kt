@@ -22,12 +22,11 @@ class BreedsPresenter(private val repository: BreedsRepository, private val view
 
         val d = repository
             .masterBreedsObservable()
-            .doOnError { view.showError() }
             .subscribe(
                 {   response ->
                     view.showBreeds(response.message) },
                 {   error ->
-                    view.hideLoadingView()})
+                    view.showError()})
 
         disposable.add(d)
     }
