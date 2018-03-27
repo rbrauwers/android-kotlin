@@ -24,6 +24,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import android.os.Build
 import com.rbrauwers.android_kotlin.breeds_list.BreedsActivity
 import com.rbrauwers.android_kotlin.extension.startActivityWithClass
+import com.rbrauwers.android_kotlin.maps.MapsActivity
+import android.content.Intent
+import android.net.Uri
+import com.rbrauwers.android_kotlin.view_model_sample.ViewModelActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -67,13 +71,20 @@ class MainActivity : AppCompatActivity() {
             .show()
     }
 
+    private fun navigate() {
+        val gmmIntentUri = Uri.parse("google.navigation:q=Lajeado,Brasil")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.`package` = "com.google.android.apps.maps"
+        startActivity(mapIntent)
+    }
+
     class MainOptionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     }
 
     inner class MainOptionsAdapter(private val context: Context) : RecyclerView.Adapter<MainOptionViewHolder>() {
 
-        val data = arrayOf("Retrofit + RxKotlin", "Get SIM Number")
+        val data = arrayOf("Retrofit + RxKotlin", "Get SIM Number", "Maps", "Navigate", "View Model Sample")
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainOptionViewHolder {
             val view = LayoutInflater.from(context).inflate(R.layout.cell_main_option, parent, false)
@@ -86,6 +97,9 @@ class MainActivity : AppCompatActivity() {
                 when(position) {
                     0 -> startActivityWithClass(BreedsActivity::class.java)
                     1 -> requestPhoneNumberPermission()
+                    2 -> startActivityWithClass(MapsActivity::class.java)
+                    3 -> navigate()
+                    4 -> startActivityWithClass(ViewModelActivity::class.java)
                 }
             }
         }
